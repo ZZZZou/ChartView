@@ -14,11 +14,13 @@ public class ChartData: ObservableObject {
 
     var normalisedPoints: [Double] {
         let absolutePoints = points.map { abs($0) }
-        return points.map { $0 / (absolutePoints.max() ?? 1.0) }
+        let max = absolutePoints.max() ?? 1.0
+        return points.map { $0 / max }
     }
 
     var normalisedRange: Double {
-        (normalisedPoints.max() ?? 0.0) - (normalisedPoints.min() ?? 0.0)
+        let nPoints = self.normalisedPoints
+        (nPoints.max() ?? 0.0) - (nPoints.min() ?? 0.0)
     }
 
     var isInNegativeDomain: Bool {
